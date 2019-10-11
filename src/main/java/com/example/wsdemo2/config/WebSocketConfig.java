@@ -18,8 +18,8 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.setApplicationDestinationPrefixes("/app");
-        registry.enableSimpleBroker("/topic");
+        registry.setApplicationDestinationPrefixes("/app"); // clent에서 send 요청 처리
+        registry.enableSimpleBroker("/topic"); // 해당 경로를 subscribe 하는 client 에게 message 전달
     }
 
 }

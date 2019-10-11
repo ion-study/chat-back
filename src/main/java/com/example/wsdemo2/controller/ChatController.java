@@ -12,7 +12,9 @@ public class ChatController {
 
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+    public ChatMessage sendMessage(@Payload ChatMessage chatMessage,
+                                   SimpMessageHeaderAccessor headerAccessor) {
+        chatMessage.setSessionId(headerAccessor.getSessionId());
         return chatMessage;
     }
 
@@ -21,8 +23,10 @@ public class ChatController {
     public ChatMessage addUser(@Payload ChatMessage chatMessage,
                                SimpMessageHeaderAccessor headerAccessor) {
         // Add username in web socket session
+        chatMessage.setSessionId(headerAccessor.getSessionId());
+        System.out.println("addUser:" + chatMessage.getSender() + ", " + chatMessage.getContent() + ", " + chatMessage.getType());
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        System.out.println("headerAccessor:" + headerAccessor);
         return chatMessage;
     }
-
 }
