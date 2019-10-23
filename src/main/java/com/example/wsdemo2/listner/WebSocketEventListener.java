@@ -1,4 +1,4 @@
-package com.example.wsdemo2.controller;
+package com.example.wsdemo2.listner;
 
 import com.example.wsdemo2.model.ChatMessage;
 import org.slf4j.Logger;

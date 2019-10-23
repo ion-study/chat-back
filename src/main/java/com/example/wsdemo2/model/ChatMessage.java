@@ -8,6 +8,7 @@ public class ChatMessage {
     private String content;
     private String sender;
     private String sessionId;
+    private String roomId;
 
     public enum MessageType {
         CHAT,
