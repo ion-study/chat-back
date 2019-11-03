@@ -20,6 +20,7 @@ public class ChatController {
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage,
                                    SimpMessageHeaderAccessor headerAccessor) {
         chatMessage.setSessionId(headerAccessor.getSessionId());
+	    System.out.println("sendMessage: " + chatMessage.toString());
 
         return chatMessage;
     }
@@ -30,6 +31,7 @@ public class ChatController {
                                SimpMessageHeaderAccessor headerAccessor) {
         // Add username in web socket session
         chatMessage.setSessionId(headerAccessor.getSessionId());
+        System.out.println("addUser: " + chatMessage.toString());
         // System.out.println("addUser:" + chatMessage.getSender() + ", " + chatMessage.getContent() + ", " + chatMessage.getType());
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
         if(chatMessage.getRoomId() != null) {
