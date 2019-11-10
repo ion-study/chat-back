@@ -16,18 +16,16 @@ public class ChatController {
     private SimpMessageSendingOperations messagingTemplate;
 
     @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage,
+    public void sendMessage(@Payload ChatMessage chatMessage,
                                    SimpMessageHeaderAccessor headerAccessor) {
         chatMessage.setSessionId(headerAccessor.getSessionId());
 	    System.out.println("sendMessage: " + chatMessage.toString());
 
-        return chatMessage;
+        messagingTemplate.convertAndSend("/topic/public/room/"+chatMessage.getRoomId(), chatMessage);
     }
 
     @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public ChatMessage addUser(@Payload ChatMessage chatMessage,
+    public void addUser(@Payload ChatMessage chatMessage,
                                SimpMessageHeaderAccessor headerAccessor) {
         // Add username in web socket session
         chatMessage.setSessionId(headerAccessor.getSessionId());
@@ -37,7 +35,6 @@ public class ChatController {
         if(chatMessage.getRoomId() != null) {
             headerAccessor.getSessionAttributes().put("roomId",chatMessage.getRoomId());
         }
-        // System.out.println("headerAccessor:" + headerAccessor);
-        return chatMessage;
+        messagingTemplate.convertAndSend("/topic/public/room/"+chatMessage.getRoomId(), chatMessage);
     }
 }

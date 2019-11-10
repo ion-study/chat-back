@@ -43,7 +43,7 @@ public class WebSocketEventListener {
             chatMessage.setSessionId(headerAccessor.getSessionId());
             chatMessage.setRoomId(roomId);
 
-            messagingTemplate.convertAndSend("/topic/public", chatMessage);
+            messagingTemplate.convertAndSend("/topic/public/room/"+chatMessage.getRoomId(), chatMessage);
         }
     }
 }
