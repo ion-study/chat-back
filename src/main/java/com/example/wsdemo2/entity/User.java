@@ -6,10 +6,11 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "ChattingRoom")
-public class Room {
+@Table(name = "User")
+public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
     private String name;
+    private String userId;
 }
