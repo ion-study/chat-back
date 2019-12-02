@@ -1,4 +1,4 @@
-package com.example.wsdemo2.repository;
+package com.example.wsdemo2.repository.room;
 
 import com.example.wsdemo2.entity.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
